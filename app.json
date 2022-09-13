@@ -1,7 +1,7 @@
 {
     "name": "Cors Proxy",
     "description": "Sample Cors Proxy",
-    "repository": "https://github.com/TxTony/easy-cors-proxy",
+    "repository": "https://github.com/zigphrid/easy-cors-proxy",
     "logo": "https://node-js-sample.herokuapp.com/node.svg",
-    "keywords": ["cors", "nodejs", "proxy", "salesforce", "rest"]
+    "keywords": ["cors", "nodejs", "proxy","rest"]
 }
