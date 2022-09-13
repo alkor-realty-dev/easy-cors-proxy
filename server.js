@@ -17,7 +17,7 @@ try{
         // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
-        res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers') || 'X-Realt-Token,X-Errors-Email,X-AUTH-TOKEN,origin, content-type, accept, location, code');
+        res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers') || 'X-AUTH-TOKEN, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
 
         if (req.method === 'OPTIONS') {
             // CORS Preflight
@@ -35,7 +35,11 @@ try{
             // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
             var headers = {};
             if ( req.header('Authorization')) {
-                headers = {'Authorization': req.header('Authorization')};
+                headers = {
+                    'Authorization': req.header('Authorization'),
+                    'X-Realt-Token': req.header('X-Realt-Token'),  
+                    'X-Errors-Email': req.header('X-Errors-Email')  
+                          };
             }
             // url: targetURL, + req.url
             //console.log(targetURL);
