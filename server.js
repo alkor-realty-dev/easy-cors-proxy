@@ -18,7 +18,8 @@ try{
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
         res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers') || 'X-AUTH-TOKEN, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
-
+        res.header('Access-Control-Allow-Credentials', false);
+        
         if (req.method === 'OPTIONS') {
             // CORS Preflight
             res.send();
@@ -35,12 +36,15 @@ try{
             // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
             var headers = {};
             if ( req.header('Authorization')) {
-                headers = {
-                    'Authorization': req.header('Authorization'),
-                    'X-Realt-Token': req.header('X-Realt-Token'),  
-                    'X-Errors-Email': req.header('X-Errors-Email')  
-                          };
+                headers['Authorization'] = req.header('Authorization');
             }
+             if ( req.header('X-Realt-Token')) {
+                headers['X-Realt-Token'] = req.header('X-Realt-Token');
+            }
+             if ( req.header('X-Errors-Email')) {
+                headers['X-Errors-Email'] = req.header('X-Errors-Email');
+            }
+            
             // url: targetURL, + req.url
             //console.log(targetURL);
             request({ 
