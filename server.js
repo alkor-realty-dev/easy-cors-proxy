@@ -4,9 +4,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     path = require('path'),
     app = express();
-try {/*
-https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6aca-56a8-bd05-f93111ee3a1d/57749124-c0dc-4460-b9cf-d6bc9825a1f4/logos.png
-   */ var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '100kb', reqMethod;
+try {
+    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '100kb', reqMethod;
     console.log('Using limit: ', myLimit);
 
     app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -26,7 +25,6 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
             // CORS Preflight
             res.send();
         } else {
-            //console.log(req.originalUrl);
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("http://") !== 0 && targetURL.indexOf("https://") !== 0) {
                 targetURL = 'https://' + targetURL;
@@ -59,7 +57,7 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
                     method: reqMethod,
                     json: req.body,
                     headers: headers,
-                    strictSSL: false
+                    strictSSL: false,
                 },
                 function (error, response, body) {
                     if (req.header('X-GET-302')) {
@@ -69,9 +67,9 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
                         if (response && response.statusCode) {
                             res.send(response.statusCode, {'response' : response, 'body': body });
                         }*/
-                        res.send(201, { error: error, response: response, body: body })
+                        res.send(201, {error: error, response: response, body: body});
                     } else {
-                        res.send(200, { error: error, response: response, body: body })
+                        res.send(200, {error: error, response: response, body: body});
                     }
                 }).pipe(res);
         }
