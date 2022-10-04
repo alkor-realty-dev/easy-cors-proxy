@@ -59,16 +59,7 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
                     method: reqMethod,
                     json: req.body,
                     headers: headers,
-                    strictSSL: false,
-                    followRedirect:  function (response, body) {
-                        if (req.header('X-GET-302')) {
-
-                            //res.send(202, {  response: response, body: body });
-
-                            return true;
-                        }
-                        return false;
-                    }
+                    strictSSL: false
                 },
                 function (error, response, body) {
                     if (req.header('X-GET-302')) {
@@ -77,8 +68,10 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
                         }
                         if (response && response.statusCode) {
                             res.send(response.statusCode, {'response' : response, 'body': body });
-                        }
-                        res.send(201, { error: error, response: response, body: body })*/
+                        }*/
+                        res.send(201, { error: error, response: response, body: body })
+                    } else {
+                        res.send(200, { error: error, response: response, body: body })
                     }
                 }).pipe(res);
         }
