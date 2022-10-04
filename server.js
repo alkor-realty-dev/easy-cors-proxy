@@ -63,10 +63,11 @@ https://alkor-realty.herokuapp.com/https://drive-b.amocrm.ru/download/bd9db311-6
                     followRedirect:  function (response, body) {
                         if (req.header('X-GET-302')) {
 
-                           // res.send(202, {  response: response, body: body });
+                            //res.send(202, {  response: response, body: body });
 
                             return true;
                         }
+                        return false;
                     }
                 },
                 function (error, response, body) {
