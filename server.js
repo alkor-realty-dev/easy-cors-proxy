@@ -5,7 +5,7 @@ var express = require('express'),
     path = require('path'),
     app = express();
 try {
-    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '100kb', reqMethod;
+    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod;
     console.log('Using limit: ', myLimit);
 
     app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -72,7 +72,7 @@ try {
                     } else {
                         res.status(200).send({error: error, response: response, body: body});
                     }
-                }).pipe(res);
+                });
         }
     });
 
