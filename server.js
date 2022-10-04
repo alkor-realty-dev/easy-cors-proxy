@@ -30,7 +30,7 @@ try {
                 targetURL = 'https://' + targetURL;
             }
             if (!targetURL) {
-                res.send(500, {error: 'There is no Target-Endpoint header in the request'});
+                res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
                 return;
             }
 
@@ -67,9 +67,10 @@ try {
                         if (response && response.statusCode) {
                             res.send(response.statusCode, {'response' : response, 'body': body });
                         }*/
-                        res.send(201, {error: error, response: response, body: body});
+
+                        res.status(201).send({error: error, response: response, body: body});
                     } else {
-                        res.send(200, {error: error, response: response, body: body});
+                        res.status(200).send({error: error, response: response, body: body});
                     }
                 }).pipe(res);
         }
