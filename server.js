@@ -47,32 +47,34 @@ try {
             if (req.header('X-AUTH-TOKEN')) {
                 headers['X-AUTH-TOKEN'] = req.header('X-AUTH-TOKEN');
             }
-
-            if (req.header('X-GET-302') && reqMethod === 'HEAD') {
-                reqMethod = 'GET';
-            }
-
-            request({
-                    url: targetURL,
-                    method: reqMethod,
-                    json: req.body,
-                    headers: headers,
-                    strictSSL: false,
-                },
-                function (error, response, body) {
-                    if (req.header('X-GET-302')) {
-                        /*if (error) {
-                            res.send(500, { error: error });
+            
+            if (req.header('X-GET-302')) {
+                request({
+                        url: targetURL,
+                        method: reqMethod,
+                        json: req.body,
+                        headers: headers,
+                        strictSSL: false,
+                    },
+                    function (error, response) {
+                        if (error) {
+                             res.status(500).send({ error: error });
+                         } else if (response && response.statusCode === 200 && response.request?.uri?.href ) {
+                            res.status(200).send({url: response.request.uri.href});
+                         } else {
+                            res.status(200).send(response);
                         }
-                        if (response && response.statusCode) {
-                            res.send(response.statusCode, {'response' : response, 'body': body });
-                        }*/
-
-                        res.status(201).send({error: error, response: response, body: body});
-                    } else {
-                        res.status(200).send({error: error, response: response, body: body});
-                    }
-                });
+                    });
+            } else {
+                request({
+                        url: targetURL,
+                        method: reqMethod,
+                        json: req.body,
+                        headers: headers,
+                        strictSSL: false,
+                    },
+                    function (error, response, body) {}).pipe(res);
+            }
         }
     });
 
