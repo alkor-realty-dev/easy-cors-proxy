@@ -29,7 +29,7 @@ try {
             }
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
-                res.status(200).send(res);
+                res.send();
                 return;
             }
             res.status(200).send({
@@ -56,7 +56,7 @@ try {
         } else {
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
-                res.status(200).send(res);
+                res.send();
             }
             if (!targetURL) {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
