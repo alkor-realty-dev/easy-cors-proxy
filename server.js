@@ -5,6 +5,7 @@ const express = require('express'),
     path = require('path'),
     fs = require('fs'),
     os = require('os'),
+    url = require('url'),
     app = express();
 
 try {
@@ -19,6 +20,7 @@ try {
         if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
             try {
                 tmpPath = path.join(__dirname, 'public', os.tmpdir(), 'test');
+                wwww = url.pathToFileURL(faviconPath);
                 tmpDir = fs.mkdirSync(tmpPath);
                 // the rest of your app goes here
             }
@@ -28,6 +30,7 @@ try {
 
             res.status(200).send({
                 tmpPath: tmpPath,
+                wwww: wwww,
                 tmpDir: tmpDir,
                 targetURL: targetURL,
                 originalUrl: req.originalUrl,
