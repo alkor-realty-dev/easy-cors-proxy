@@ -18,6 +18,12 @@ try {
 
     app.all('*', function (req, res, next) {
         if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
+            console.log('test');
+            console.log(req);
+            console.log('test22');
+            console.log(res);
+            console.log('test333');
+            console.log(next);
             try {
                 tmpPath = path.join(__dirname, 'public', os.tmpdir(), 'test');
                 wwww = url.pathToFileURL(faviconPath);
@@ -56,7 +62,7 @@ try {
         } else {
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
-                res.send();
+                targetURL = 'https://' + targetURL;
             }
             if (!targetURL) {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
