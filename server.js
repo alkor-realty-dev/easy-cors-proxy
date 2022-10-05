@@ -27,7 +27,10 @@ try {
             catch {
                 // handle error
             }
-
+            var targetURL = req.originalUrl.substr(1);
+            if (targetURL !== "" && targetURL.indexOf("http://") !== 0 && targetURL.indexOf("https://") !== 0) {
+                targetURL = 'https://' + targetURL;
+            }
             res.status(200).send({
                 tmpPath: tmpPath,
                 wwww: wwww,
