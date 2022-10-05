@@ -1,18 +1,25 @@
-var express = require('express'),
+const express = require('express'),
     request = require('request'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     path = require('path'),
+    fs = require('fs'),
+    os = require('os'),
     app = express();
-try {
-    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod;
-    console.log('Using limit: ', myLimit);
 
-    app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+try {
+    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod, faviconPath;
+    console.log('Using limit: ', myLimit);
+    faviconPath = path.join(__dirname, 'public', 'favicon.ico');
+    app.use(favicon(faviconPath));
 
     app.use(bodyParser.json({limit: myLimit}));
 
     app.all('*', function (req, res, next) {
+        if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
+            res.status(200).send({targetURL: targetURL, originalUrl: req.originalUrl, ss: __dirname, hhh: faviconPath});
+            return;
+        }
         // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
@@ -33,7 +40,7 @@ try {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
                 return;
             }
-
+         
             var headers = {};
             if (req.header('Authorization')) {
                 headers['Authorization'] = req.header('Authorization');
@@ -47,7 +54,7 @@ try {
             if (req.header('X-AUTH-TOKEN')) {
                 headers['X-AUTH-TOKEN'] = req.header('X-AUTH-TOKEN');
             }
-            
+
             if (req.header('X-GET-302')) {
                 request({
                         url: targetURL,
@@ -58,10 +65,10 @@ try {
                     },
                     function (error, response) {
                         if (error) {
-                             res.status(500).send({ error: error });
-                         } else if (response && response.statusCode === 200 && response.request?.uri?.href ) {
+                            res.status(500).send({error: error});
+                        } else if (response && response.statusCode === 200 && response.request?.uri?.href) {
                             res.status(200).send({url: response.request.uri.href});
-                         } else {
+                        } else {
                             res.status(200).send(response);
                         }
                     });
@@ -73,7 +80,8 @@ try {
                         headers: headers,
                         strictSSL: false,
                     },
-                    function (error, response, body) {}).pipe(res);
+                    function (error, response, body) {
+                    }).pipe(res);
             }
         }
     });
