@@ -8,7 +8,7 @@ const express = require('express'),
     app = express();
 
 try {
-    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod, faviconPath;
+    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod, faviconPath, tmpDir, tmpPath;
     console.log('Using limit: ', myLimit);
     faviconPath = path.join(__dirname, 'public', 'favicon.ico');
     app.use(favicon(faviconPath));
@@ -17,7 +17,22 @@ try {
 
     app.all('*', function (req, res, next) {
         if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
-            res.status(200).send({targetURL: targetURL, originalUrl: req.originalUrl, ss: __dirname, hhh: faviconPath});
+            try {
+                tmpPath = path.join(os.tmpdir(), 'test');
+                tmpDir = fs.mkdtempSync(tmpPath);
+                // the rest of your app goes here
+            }
+            catch {
+                // handle error
+            }
+
+            res.status(200).send({
+                tmpPath: tmpPath,
+                tmpDir: tmpDir,
+                targetURL: targetURL,
+                originalUrl: req.originalUrl,
+                ss: __dirname,
+                hhh: faviconPath});
             return;
         }
         // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
@@ -40,7 +55,7 @@ try {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
                 return;
             }
-         
+
             var headers = {};
             if (req.header('Authorization')) {
                 headers['Authorization'] = req.header('Authorization');
