@@ -19,7 +19,7 @@ try {
         if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
             try {
                 tmpPath = path.join(__dirname, 'public', os.tmpdir(), 'test');
-                tmpDir = fs.mkdtempSync(tmpPath);
+                tmpDir = fs.mkdirSync(tmpPath);
                 // the rest of your app goes here
             }
             catch {
