@@ -35,7 +35,7 @@ try {
             }
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
-                res.send();
+                res.send({test:req.originalUrl,tesst:targetURL});
                 return;
             }
             res.status(200).send({
