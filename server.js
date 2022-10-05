@@ -56,7 +56,7 @@ try {
         } else {
             var targetURL = req.originalUrl.substr(1);
             if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
-                res.status(500).send({error: error});
+                res.status(200).send(res);
             }
             if (!targetURL) {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
