@@ -28,8 +28,9 @@ try {
                 // handle error
             }
             var targetURL = req.originalUrl.substr(1);
-            if (targetURL !== "" && targetURL.indexOf("http://") !== 0 && targetURL.indexOf("https://") !== 0) {
-                targetURL = 'https://' + targetURL;
+            if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
+                res.status(200).send(res);
+                return;
             }
             res.status(200).send({
                 tmpPath: tmpPath,
@@ -54,8 +55,8 @@ try {
             res.send();
         } else {
             var targetURL = req.originalUrl.substr(1);
-            if (targetURL !== "" && targetURL.indexOf("http://") !== 0 && targetURL.indexOf("https://") !== 0) {
-                targetURL = 'https://' + targetURL;
+            if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
+                res.status(500).send({error: error});
             }
             if (!targetURL) {
                 res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
