@@ -95,6 +95,7 @@ try {
                     cdnInageArr = [];
 
                     if (req.header('X-GET-302')) {
+                        res.status(200).send({'sssss': req.body.imageUrls}); return;
                         for (var i = 0; i < imageesArr.length; i++) {
                             var ingUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
 
