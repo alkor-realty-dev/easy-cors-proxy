@@ -99,7 +99,7 @@ try {
                             var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj, imgCdnUrl;
 
                             try {
-                                imgCdnUrl = await request({
+                                imgCdnUrl = request({
                                         url: imgUrl,
                                         method: "GET",
                                         json: req.body,
