@@ -94,8 +94,8 @@ try {
                     imageesArr = req?.body?.imageUrls ? req.body.imageUrls : false;
                     cdnInageArr = [];
 
-                    if (req.header('X-GET-302')) {
-                        res.status(200).send({'sssss': req.body.imageUrls}); return;
+                    res.status(200).send({'sssss': req});
+                    /*if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
                             var ingUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
 
@@ -136,9 +136,7 @@ try {
                         } else {
                             res.status(200).send({'result': false});
                         }
-                    }
-
-
+                    }*/
                 } else {
                     request({
                             url: targetURL,
