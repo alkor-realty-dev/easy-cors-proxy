@@ -122,10 +122,9 @@ try {
                         if (cdnInageArr?.length) {
                             res.status(200).send({'imageUrls': cdnInageArr});
                         } else {
-                            res.status(404).send({'imageUrls': false});
+                            res.status(200).send({'imageUrls': false});
                         }
                     } else if (req.header('X-CLEAR-TEMP-302')) {
-
                         imageesidsArr = req?.body?.imageIds ? req.body.imageIds : false;
                         if (imageesidsArr) {
                             deleteRes = await deleteImages(imageesidsArr);
@@ -134,7 +133,7 @@ try {
                         if (deleteRes) {
                             res.status(200).send({'result': deleteRes});
                         } else {
-                            res.status(404).send({'result': false});
+                            res.status(200).send({'result': false});
                         }
                     }
 
