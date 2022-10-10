@@ -96,11 +96,30 @@ try {
 
                     if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
-                            var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
+                            var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj, imgCdnUrl;
 
                             try {
+                                imgCdnUrl = await request({
+                                        url: imgUrl,
+                                        method: "GET",
+                                        json: req.body,
+                                        headers: headers,
+                                        strictSSL: false,
+                                    },
+                                    function (error, response) {
+                                        if (error) {
+                                            res.status(500).send({error: error});
+                                        } else if (response && response.statusCode === 200 && response.request?.uri?.href) {
+                                            res.status(200).send({url: response.request.uri.href});
+                                        } else {
+                                            res.status(200).send(response);
+                                        }
+                                    });
+
+                                res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': imgCdnUrl});
+                                break;
                                 rawIOmgData = await request({
-                                    url: imgUrl,
+                                    url: imgCdnUrl,
                                     method: "GET",
                                     strictSSL: false,
                                 })
