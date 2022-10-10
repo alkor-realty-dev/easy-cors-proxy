@@ -96,11 +96,11 @@ try {
 
                     if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
-                            var ingUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
+                            var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
 
                             try {
                                 rawIOmgData = await request({
-                                    url: ingUrl,
+                                    url: imgUrl,
                                     method: "GET",
                                     strictSSL: false,
                                 })
@@ -108,7 +108,7 @@ try {
                                 if (rawIOmgData) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
-                                        res.status(200).send({'cdnImageUrlObj': cdnImageUrlObj});
+                                        res.status(200).send({'imgUrl': imgUrl, 'rawIOmgData': rawIOmgData, 'cdnImageUrlObj': cdnImageUrlObj});
                                         break;
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
