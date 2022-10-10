@@ -85,16 +85,16 @@ try {
                 }
 
                 if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
-                    let imageesArr, cdnInageArr;
+                    let imageesArr, cdnInageArr, xData;
 
-                    if (req?.body?.cloudinaryConfig) {
-                        cloudinary.config(req.body.cloudinaryConfig);
+                    xData = req.header('X-DATA') ? JSON.parse(req.header('X-DATA')) : false;
+                    if (xData.cloudinaryConfig) {
+                        cloudinary.config(xData.cloudinaryConfig);
                     }
-
-                    imageesArr = req?.body?.imageUrls ? req.body.imageUrls : false;
+                    imageesArr = xData?.imageUrls ? xData.imageUrls : false;
                     cdnInageArr = [];
 
-                    res.status(200).send({'sssss': req.body, 'ddd': req.originalUrl});
+                    res.status(200).send({'sssss': xData});
                     console.log(req);
                     /*if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
@@ -127,7 +127,7 @@ try {
                             res.status(200).send({'imageUrls': false});
                         }
                     } else if (req.header('X-CLEAR-TEMP-302')) {
-                        imageesidsArr = req?.body?.imageIds ? req.body.imageIds : false;
+                        imageesidsArr = xData?.imageIds ? xData.imageIds : false;
                         if (imageesidsArr) {
                             deleteRes = await deleteImages(imageesidsArr);
                         }
