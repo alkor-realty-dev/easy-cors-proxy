@@ -48,7 +48,7 @@ try {
 
     app.use(bodyParser.json({limit: myLimit}));
 
-    app.all('*', function (req, res, next) {
+    app.all('*', async function (req, res, next) {
             // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
@@ -94,7 +94,7 @@ try {
                     imageesArr = req?.body?.imageUrls ? req.body.imageUrls : false;
                     cdnInageArr = [];
 
-                    if (req.header('X-GET-302') {
+                    if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
                             var ingUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
 
