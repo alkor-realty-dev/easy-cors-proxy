@@ -93,7 +93,7 @@ try {
                     }
                     imageesArr = xData?.imageUrls ? xData.imageUrls : false;
                     cdnInageArr = [];
-                    
+
                     if (req.header('X-GET-302')) {
                         for (var i = 0; i < imageesArr.length; i++) {
                             var ingUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
@@ -108,7 +108,8 @@ try {
                                 if (rawIOmgData) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
-
+                                        res.status(200).send({'cdnImageUrlObj': cdnImageUrlObj});
+                                        break;
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
