@@ -109,17 +109,9 @@ try {
                             try {
                                 let rawIOmgData = await axios.get(imgUrl);
 
-                                //rawIOmgData = rawIOmgData.data;
-
-                                console.log('rawIOmgData.status');
-                                console.log(rawIOmgData.status);
-                                console.log('rawIOmgData');
-                                console.log(rawIOmgData.request);
-                                console.log('rawIOmgData.res.responseUrl');
-                                console.log(rawIOmgData.request.res.responseUrl);break;
-                                if (rawIOmgData) {
+                                if (rawIOmgData?.request?.res?.responseUrl) {
                                     try {
-                                        cdnImageUrlObj = await uploadImage(rawIOmgData);
+                                        cdnImageUrlObj = await uploadImage(rawIOmgData.request.res.responseUrl);
                                         console.log('uploadImage');
                                         console.log(cdnImageUrlObj);
                                         break;
