@@ -107,18 +107,16 @@ try {
                             var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj;
 
                             try {
-                                let [rawIOmgData] = await axios.all([
-                                    axios.get(imgUrl)
-                                ]);
+                                let rawIOmgData = await axios.get(imgUrl);
 
                                 //rawIOmgData = rawIOmgData.data;
 
                                 console.log('rawIOmgData.res');
                                 console.log(rawIOmgData.res);
-                                console.log('rawIOmgData.res.responseUrl');
-                                console.log(rawIOmgData.res.responseUrl);
                                 console.log('rawIOmgData');
-                                console.log(rawIOmgData);break;
+                                console.log(rawIOmgData);
+                                console.log('rawIOmgData.res.responseUrl');
+                                console.log(rawIOmgData.res.responseUrl);break;
                                 if (rawIOmgData) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
