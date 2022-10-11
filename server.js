@@ -64,7 +64,7 @@ try {
                 res.send();
             } else {
                 var targetURL = req.originalUrl.substr(1);
-                if (targetURL !== "" && targetURL.indexOf("://") !== 0) {
+                if ( targetURL !== "" && targetURL.indexOf("http://") !== 0 && targetURL.indexOf("https://") !== 0) {
                     targetURL = 'https://' + targetURL;
                 }
                 if (!targetURL) {
@@ -134,8 +134,6 @@ try {
                         }
                     }
                 } else {
-
-                    res.status(200).send({targetURL: targetURL, originalUrl: req.originalUrl});
                     request({
                             url: targetURL,
                             method: req.method,
