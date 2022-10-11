@@ -114,6 +114,8 @@ try {
                                 rawIOmgData = rawIOmgData.data;
 
 
+                                console.log('rawIOmgData.keys');
+                                console.log(rawIOmgData);break;
                                 if (rawIOmgData) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
