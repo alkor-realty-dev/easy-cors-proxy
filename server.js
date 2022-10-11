@@ -20,7 +20,7 @@ const uploadImage = async (imagePath) => {
         if (result?.public_id) {
             resObj[result.public_id] = result.secure_url;
         }
-        
+
         return resObj;
     } catch (error) {
         console.error(error);
@@ -71,7 +71,6 @@ try {
                     res.status(500).send({error: 'There is no Target-Endpoint header in the request'});
                     return;
                 }
-
                 var headers = {};
                 if (req.header('Authorization')) {
                     headers['Authorization'] = req.header('Authorization');
@@ -106,7 +105,7 @@ try {
                                 if (rawIOmgData?.request?.res?.responseUrl) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData.request.res.responseUrl);
-                                       
+
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
@@ -135,13 +134,14 @@ try {
                         }
                     }
                 } else {
+
+                    res.status(200).send({targetURL: targetURL, originalUrl: req.originalUrl});
                     request({
                             url: targetURL,
-                            method: reqMethod,
+                            method: req.method,
                             json: req.body,
                             headers: headers,
-                            strictSSL: false,
-                        },
+                            strictSSL: false },
                         function (error, response, body) {
                         }).pipe(res);
                 }
