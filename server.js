@@ -1,5 +1,6 @@
 const express = require('express'),
     request = require('request'),
+    axios = require('axios'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     path = require('path'),
@@ -99,24 +100,12 @@ try {
                             var imgUrl = imageesArr[i], rawIOmgData, cdnImageUrlObj, imgCdnUrl;
 
                             try {
-                                imgCdnUrl = request({
-                                        url: imgUrl,
-                                        method: "GET",
-                                        json: req.body,
-                                        headers: headers,
-                                        strictSSL: false,
-                                    },
-                                    function (error, response) {
-                                        if (error) {
-                                            res.status(500).send({error: error});
-                                        } else if (response && response.statusCode === 200 && response.request?.uri?.href) {
-                                            res.status(200).send({url: response.request.uri.href});
-                                        } else {
-                                            res.status(200).send(response);
-                                        }
-                                    }).pipe(imgCdnUrl);
-
-                                res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': imgCdnUrl});
+                                const [response] = await axios.all([
+                                    axios.get(imgUrl)
+                                ]);
+                                console.log(response);
+                                
+                                res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': response});
                                 break;
                                 rawIOmgData = await request({
                                     url: imgCdnUrl,
@@ -129,7 +118,7 @@ try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
                                         res.status(200).send({'imgUrl': imgUrl, 'rawIOmgData': rawIOmgData, 'cdnImageUrlObj': cdnImageUrlObj});
                                         break;
-                                        
+
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
