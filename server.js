@@ -114,6 +114,7 @@ try {
                                 //rawIOmgData = rawIOmgData.data;
 
                                 console.log('rawIOmgData.responseUrl');
+                                console.log(rawIOmgData.res);
                                 console.log(rawIOmgData.res.responseUrl);break;
                                 if (rawIOmgData) {
                                     try {
