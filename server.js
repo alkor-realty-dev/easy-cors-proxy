@@ -114,7 +114,7 @@ try {
                                         } else {
                                             res.status(200).send(response);
                                         }
-                                    });
+                                    }).pipe(imgCdnUrl);
 
                                 res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': imgCdnUrl});
                                 break;
@@ -129,6 +129,7 @@ try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
                                         res.status(200).send({'imgUrl': imgUrl, 'rawIOmgData': rawIOmgData, 'cdnImageUrlObj': cdnImageUrlObj});
                                         break;
+                                        
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
