@@ -111,9 +111,8 @@ try {
                                     axios.get(imgUrl)
                                 ]);
 
-                                rawIOmgData = rawIOmgData.data;
-
-
+                                //rawIOmgData = rawIOmgData.data;
+                                
                                 console.log('rawIOmgData.keys');
                                 console.log(rawIOmgData);break;
                                 if (rawIOmgData) {
