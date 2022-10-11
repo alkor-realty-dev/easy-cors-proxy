@@ -106,10 +106,14 @@ try {
 
                                 rawIOmgData = rawIOmgData.data;
 
+                                console.log(xData.cloudinaryConfig);
+                                console.log(xData.imageUrls);
+                                console.log(rawIOmgData);
+                                break;
                                 if (rawIOmgData) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData);
-                                        
+
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
