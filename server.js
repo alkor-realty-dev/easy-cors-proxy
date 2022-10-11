@@ -14,19 +14,13 @@ const uploadImage = async (imagePath) => {
         folder: 'temp',
     };
 
-    console.log('options');
-    console.log(options);
     try {
         let resObj = {};
         const result = await cloudinary.uploader.upload(imagePath, options);
         if (result?.public_id) {
             resObj[result.public_id] = result.secure_url;
         }
-
-        console.log('result');
-        console.log(result);
-        console.log('resObj');
-        console.log(resObj);
+        
         return resObj;
     } catch (error) {
         console.error(error);
@@ -112,9 +106,7 @@ try {
                                 if (rawIOmgData?.request?.res?.responseUrl) {
                                     try {
                                         cdnImageUrlObj = await uploadImage(rawIOmgData.request.res.responseUrl);
-                                        console.log('uploadImage');
-                                        console.log(cdnImageUrlObj);
-                                        break;
+                                       
                                         if (cdnImageUrlObj && Object.keys(cdnImageUrlObj).length) {
                                             cdnInageArr.push(cdnImageUrlObj);
                                         }
