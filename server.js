@@ -104,8 +104,8 @@ try {
                                     axios.get(imgUrl)
                                 ]);
                                 console.log(response);
-                                
-                                res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': response});
+
+                                res.status(200).send({'imgUrl': imgUrl, 'imgCdnUrl': response.data});
                                 break;
                                 rawIOmgData = await request({
                                     url: imgCdnUrl,
