@@ -42,7 +42,7 @@ const deleteImages = async (imagesArr) => {
 };
 
 try {
-    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '1500kb', reqMethod, faviconPath;
+    var myLimit = typeof (process.argv[2]) != 'undefined' ? process.argv[2] : '10000kb', reqMethod, faviconPath;
 
     console.log('Using limit: ', myLimit);
     faviconPath = path.join(__dirname, 'public', 'favicon.ico');
