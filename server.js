@@ -12,7 +12,7 @@ const uploadImage = async (imagePath) => {
     // allow overwriting the asset with new versions
     const options = {
         folder: 'temp',
-        resource_type: 'auto'
+        format: 'jpg'
     };
 
     try {
