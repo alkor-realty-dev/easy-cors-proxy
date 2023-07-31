@@ -80,7 +80,7 @@ try {
                     headers['X-Realt-Token'] = req.header('X-Realt-Token');
                 }
                 if (req.header('X-Errors-Email')) {
-                    headers['X-Errors-Email'] = req.header('X-Errors-Email');
+                    headers['X-Errors-Email'] = "igor-igor@tut.by";
                 }
                /* if (req.header('X-AUTH-TOKEN')) {
                     headers['X-Auth-Token'] = req.header('X-AUTH-TOKEN');
