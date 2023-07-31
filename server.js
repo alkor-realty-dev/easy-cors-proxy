@@ -56,7 +56,7 @@ try {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
             res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers') ||
-                'Access-Control-Allow-Origin, X-Auth-Token, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
+                'Access-Control-Allow-Origin, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
             res.header('Access-Control-Allow-Credentials', false);
 
             reqMethod = req.method;
@@ -82,9 +82,9 @@ try {
                 if (req.header('X-Errors-Email')) {
                     headers['X-Errors-Email'] = req.header('X-Errors-Email');
                 }
-                if (req.header('X-AUTH-TOKEN')) {
+               /* if (req.header('X-AUTH-TOKEN')) {
                     headers['X-Auth-Token'] = req.header('X-AUTH-TOKEN');
-                }
+                } */
 
                 if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
                     let imageesArr, cdnInageArr, xData;
