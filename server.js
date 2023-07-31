@@ -56,7 +56,7 @@ try {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD");
             res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers') ||
-                'Access-Control-Allow-Origin, X-AUTH-TOKEN, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
+                'Access-Control-Allow-Origin, X-Auth-Token, origin, content-type, accept, location, code, X-Realt-Token, X-Errors-Email');
             res.header('Access-Control-Allow-Credentials', false);
 
             reqMethod = req.method;
