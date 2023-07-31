@@ -83,7 +83,7 @@ try {
                     headers['X-Errors-Email'] = req.header('X-Errors-Email');
                 }
                 if (req.header('X-AUTH-TOKEN')) {
-                    headers['X-AUTH-TOKEN'] = req.header('X-AUTH-TOKEN');
+                    headers['X-Auth-Token'] = req.header('X-AUTH-TOKEN');
                 }
 
                 if (req.header('X-GET-302') || req.header('X-CLEAR-TEMP-302')) {
